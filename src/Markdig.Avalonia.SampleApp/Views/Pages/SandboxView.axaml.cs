@@ -65,6 +65,31 @@ public partial class SandboxView : UserControl
             italicsSpan,
         });
 
+        // Bold + italics doesn't appear to work, need to set on the same span I think...
+        var combinedSpan = new Bold();
+        var innerSpan = new Italic();
+        innerSpan.Inlines.Add(new Run("bold and italics"));
+        combinedSpan.Inlines.Add(innerSpan);
+
+        inlineCollection.AddRange(new Inline[]
+        {
+            new LineBreak(),
+            new LineBreak(),
+            combinedSpan,
+        });
+
+        var combinedSpanV2 = new Span();
+        combinedSpanV2.FontStyle = global::Avalonia.Media.FontStyle.Italic;
+        combinedSpanV2.FontWeight = global::Avalonia.Media.FontWeight.Bold;
+        combinedSpanV2.Inlines.Add(new Run("bold and italics (attempt 2)"));
+
+        inlineCollection.AddRange(new Inline[]
+        {
+            new LineBreak(),
+            new LineBreak(),
+            combinedSpanV2,
+        });
+
         var markdownPipeline = new MarkdownPipelineBuilder().Build();
 
         // As a test, a simple markdown document like this:
@@ -78,9 +103,17 @@ public partial class SandboxView : UserControl
 
         // More complex text now
         // There should be two paragraph blocks
-        string twoParagraphs = @"first paragraph here
+        //        string twoParagraphs = @"first paragraph here
 
-second paragraph here";
-        txtInlines.Inlines = Markdown.ToInlineCollection(twoParagraphs, markdownPipeline);
+        //second paragraph here";
+        //        txtInlines.Inlines = Markdown.ToInlineCollection(twoParagraphs, markdownPipeline);
+
+        // Some bold and italics in the document now
+        //        const string boldAndItalics = @"**here's some bold text** and *italics*
+
+        //and this is some ***bold and italic text***";
+
+        const string boldAndItalics = @"***bold and italics***";
+        txtInlines.Inlines = Markdown.ToInlineCollection(boldAndItalics, markdownPipeline);
     }
 }

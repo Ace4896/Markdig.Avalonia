@@ -35,11 +35,15 @@ public class AvaloniaRenderer : RendererBase
 
     private void LoadObjectRenderers()
     {
-        // Default Block Renderers
-        ObjectRenderers.Add(new ParagraphBlockRenderer());
+        ObjectRenderers.AddRange(new IMarkdownObjectRenderer[]
+        {
+            // Default Block Renderers
+            new ParagraphBlockRenderer(),
 
-        // Default Inline Renderers
-        ObjectRenderers.Add(new LiteralInlineRenderer());
+            // Default Inline Renderers
+            new EmphasisInlineRenderer(),
+            new LiteralInlineRenderer(),
+        });
     }
 
     #region Stack Operations (Avalonia-side)
