@@ -1,3 +1,3 @@
 # Markdig.Avalonia
 
-An Avalonia renderer for the Markdown processor [Markdig](https://github.com/xoofx/markdig).
+An Avalonia renderer for [Markdig](https://github.com/xoofx/markdig).
