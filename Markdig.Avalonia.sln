@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9236807F-245B-4012-92DC-A36041E856CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Markdig.Avalonia", "src\Markdig.Avalonia\Markdig.Avalonia.csproj", "{39746F85-FD07-429C-937E-71D304F10BDA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Markdig.Avalonia.SampleApp", "src\Markdig.Avalonia.SampleApp\Markdig.Avalonia.SampleApp.csproj", "{A5F5268F-6FFD-4FD3-B6F8-BD28447C8046}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68245892-9F13-4686-888F-799DB8BF3C43}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Directory.Packages.props = Directory.Packages.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39746F85-FD07-429C-937E-71D304F10BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39746F85-FD07-429C-937E-71D304F10BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39746F85-FD07-429C-937E-71D304F10BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39746F85-FD07-429C-937E-71D304F10BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F5268F-6FFD-4FD3-B6F8-BD28447C8046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F5268F-6FFD-4FD3-B6F8-BD28447C8046}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F5268F-6FFD-4FD3-B6F8-BD28447C8046}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F5268F-6FFD-4FD3-B6F8-BD28447C8046}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{39746F85-FD07-429C-937E-71D304F10BDA} = {9236807F-245B-4012-92DC-A36041E856CF}
+		{A5F5268F-6FFD-4FD3-B6F8-BD28447C8046} = {9236807F-245B-4012-92DC-A36041E856CF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00390758-8949-46F3-B569-77B4276A5AE1}
+	EndGlobalSection
+EndGlobal
