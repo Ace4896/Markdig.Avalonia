@@ -1,4 +1,5 @@
-﻿using Markdig.Syntax;
+﻿using Avalonia.Controls.Documents;
+using Markdig.Syntax;
 
 namespace Markdig.Avalonia.Renderers.Blocks;
 
@@ -10,6 +11,9 @@ public class ParagraphBlockRenderer : AvaloniaObjectRenderer<ParagraphBlock>
 {
     protected override void Write(AvaloniaRenderer renderer, ParagraphBlock obj)
     {
-        throw new NotImplementedException();
+        var paragraphSpan = new Span();
+        renderer.PushSpanForRendering(paragraphSpan);
+        renderer.WriteLeafBlockInlines(obj);
+        renderer.CompleteCurrentSpan();
     }
 }

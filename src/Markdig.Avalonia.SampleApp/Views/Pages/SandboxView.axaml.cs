@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
+using System;
 
 namespace Markdig.Avalonia.SampleApp.Views.Pages;
 
@@ -63,5 +64,23 @@ public partial class SandboxView : UserControl
             new LineBreak(),
             italicsSpan,
         });
+
+        var markdownPipeline = new MarkdownPipelineBuilder().Build();
+
+        // As a test, a simple markdown document like this:
+        //
+        // some test text
+        //
+        // Should result in a ParagraphBlock -> LiteralInline("some test text")
+        // And should be rendered to Span -> Run("some test text")
+        //const string testText = "some test text";
+        //Markdown.ToInlineCollection(testText, markdownPipeline);
+
+        // More complex text now
+        // There should be two paragraph blocks
+        string twoParagraphs = @"first paragraph here
+
+second paragraph here";
+        txtInlines.Inlines = Markdown.ToInlineCollection(twoParagraphs, markdownPipeline);
     }
 }
