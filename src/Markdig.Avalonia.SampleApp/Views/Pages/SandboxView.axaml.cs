@@ -110,9 +110,32 @@ public partial class SandboxView : UserControl
         //        txtInlines.Inlines = Markdown.ToInlineCollection(twoParagraphs, markdownPipeline);
 
         // Some bold and italics in the document now
-        const string boldAndItalics = @"**here's some bold text** and *italics*
+        //        const string boldAndItalics = @"**here's some bold text** and *italics*
 
-and this is some ***bold and italic text***";
-        txtInlines.Inlines = Markdown.ToInlineCollection(boldAndItalics, markdownPipeline);
+        //and this is some ***bold and italic text***";
+        //        txtInlines.Inlines = Markdown.ToInlineCollection(boldAndItalics, markdownPipeline);
+
+        // Now adding headings!
+        const string withHeadings = @"
+# Heading 1
+
+some sub text goes here
+
+## Heading 2
+
+**bold text** under the second heading
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+###### Heading 6
+
+# Heading 1 with *italics text*
+";
+
+        txtInlines.Inlines = Markdown.ToInlineCollection(withHeadings, markdownPipeline);
     }
 }

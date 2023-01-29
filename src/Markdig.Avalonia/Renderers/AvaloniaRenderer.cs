@@ -40,6 +40,7 @@ public class AvaloniaRenderer : RendererBase
         ObjectRenderers.AddRange(new IMarkdownObjectRenderer[]
         {
             // Default Block Renderers
+            new HeadingBlockRenderer(),
             new ParagraphBlockRenderer(),
 
             // Default Inline Renderers
