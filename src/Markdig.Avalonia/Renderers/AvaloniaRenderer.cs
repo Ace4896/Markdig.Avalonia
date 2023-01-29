@@ -14,13 +14,11 @@ public class AvaloniaRenderer : RendererBase
 {
     private readonly Stack<Span> _renderStack;
     private InlineCollection _renderedInlines;
-    private List<string> _styleClasses;
 
     public AvaloniaRenderer()
     {
         _renderStack = new();
         _renderedInlines = new();
-        _styleClasses = new List<string>();
 
         LoadObjectRenderers();
     }
@@ -29,7 +27,6 @@ public class AvaloniaRenderer : RendererBase
     {
         _renderStack.Clear();
         _renderedInlines = new();
-        _styleClasses.Clear();
 
         Write(markdownObject);
         return _renderedInlines;
@@ -59,24 +56,6 @@ public class AvaloniaRenderer : RendererBase
     public void WriteRenderedInline(Inline inline)
     {
         _renderStack.Peek().Inlines.Add(inline);
-    }
-
-    public void AddStyleClass(string stylingClass)
-    {
-        if (!_styleClasses.Contains(stylingClass))
-        {
-            _styleClasses.Add(stylingClass);
-        }
-    }
-
-    public void RemoveStyleClass(string stylingClass)
-    {
-        _styleClasses.Remove(stylingClass);
-    }
-
-    public void SetStyleClasses()
-    {
-        _renderStack.Peek().Classes.AddRange(_styleClasses);
     }
 
     public void CompleteCurrentInline()

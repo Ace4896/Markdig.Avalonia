@@ -13,30 +13,27 @@ internal class EmphasisInlineRenderer : AvaloniaObjectRenderer<EmphasisInline>
 {
     protected override void Write(AvaloniaRenderer renderer, EmphasisInline obj)
     {
-        string? styleClass = obj.DelimiterChar switch
-        {
-            '*' or '_' => obj.DelimiterCount switch
-            {
-                1 => StyleClasses.Italics,
-                2 => StyleClasses.Bold,
-                _ => null,
-            },
-            _ => null,
-        };
+        var emphasisInlineSpan = new Span();
 
-        if (styleClass != null)
+        switch (obj.DelimiterChar)
         {
-            renderer.AddStyleClass(styleClass);
+            case '*':
+            case '_':
+                switch (obj.DelimiterCount)
+                {
+                    case 1:
+                        emphasisInlineSpan.Classes.Add(StyleClasses.Italics);
+                        break;
+                    case 2:
+                        emphasisInlineSpan.Classes.Add(StyleClasses.Bold);
+                        break;
+                }
+
+                break;
         }
 
-        renderer.PushBlockForRendering(new Span());
-        renderer.SetStyleClasses();
+        renderer.PushBlockForRendering(emphasisInlineSpan);
         renderer.WriteChildren(obj);
         renderer.CompleteCurrentInline();
-
-        if (styleClass != null)
-        {
-            renderer.RemoveStyleClass(styleClass);
-        }
     }
 }
