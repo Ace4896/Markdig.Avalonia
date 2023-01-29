@@ -22,9 +22,16 @@ No extensions are supported at the moment.
 
 ## Usage
 
-**TODO**: Styling will be re-implemented as control themes, to make it easier to change the theme for individual controls
+First, add any control themes that you'd like to use in `App.axaml`:
 
-This library provides the `MarkdownTextBlock` control for Avalonia, which is derived from `SelectableTextBlock`. It can be imported from the `Markdig.Avalonia.Controls` namespace and used as follows:
+```xaml
+<Application.Styles>
+    <!-- Fluent v1 -->
+    <StyleInclude Source="avares://Markdig.Avalonia/Styles/Fluent.axaml" />
+</Application.Styles>
+```
+
+This library provides the `MarkdownTextBlock` control for Avalonia, which is derived from `SelectableTextBlock`.  It can be imported from the `Markdig.Avalonia.Controls` namespace and used as follows:
 
 ```xaml
 <UserControl xmlns:mdctrls="using:Markdig.Avalonia.Controls">
