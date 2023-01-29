@@ -17,8 +17,11 @@ public class AvaloniaRenderer : RendererBase
     private Stack<Span> _renderStack;
     private InlineCollection _renderedInlines;
 
-    internal FontWeight _currentFontWeight = FontWeight.Normal;
-    internal FontStyle _currentFontStyle = FontStyle.Normal;
+    internal FontFormatting CurrentFontFormatting = new()
+    {
+        FontStyle = FontStyle.Normal,
+        FontWeight = FontWeight.Normal,
+    };
 
     public AvaloniaRenderer()
     {
@@ -60,6 +63,13 @@ public class AvaloniaRenderer : RendererBase
     public void WriteRenderedInline(Inline inline)
     {
         _renderStack.Peek().Inlines.Add(inline);
+    }
+
+    public void SetFontFormatting()
+    {
+        var currentSpan = _renderStack.Peek();
+        currentSpan.FontStyle = CurrentFontFormatting.FontStyle;
+        currentSpan.FontWeight = CurrentFontFormatting.FontWeight;
     }
 
     public void CompleteCurrentInline()

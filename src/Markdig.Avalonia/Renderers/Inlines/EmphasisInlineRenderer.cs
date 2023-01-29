@@ -12,10 +12,7 @@ internal class EmphasisInlineRenderer : AvaloniaObjectRenderer<EmphasisInline>
 {
     protected override void Write(AvaloniaRenderer renderer, EmphasisInline obj)
     {
-        var span = new Span();
-
-        var oldFontStyle = renderer._currentFontStyle;
-        var oldFontWeight = renderer._currentFontWeight;
+        var oldFontFormatting = renderer.CurrentFontFormatting;
 
         switch (obj.DelimiterChar)
         {
@@ -24,25 +21,22 @@ internal class EmphasisInlineRenderer : AvaloniaObjectRenderer<EmphasisInline>
                 switch (obj.DelimiterCount)
                 {
                     case 1:
-                        renderer._currentFontStyle = FontStyle.Italic;
+                        renderer.CurrentFontFormatting.FontStyle = FontStyle.Italic;
                         break;
 
                     case 2:
-                        renderer._currentFontWeight = FontWeight.Bold;
+                        renderer.CurrentFontFormatting.FontWeight = FontWeight.Bold;
                         break;
                 }
 
                 break;
         }
 
-        span.FontStyle = renderer._currentFontStyle;
-        span.FontWeight = renderer._currentFontWeight;
-
-        renderer.PushBlockForRendering(span);
+        renderer.PushBlockForRendering(new Span());
+        renderer.SetFontFormatting();
         renderer.WriteChildren(obj);
         renderer.CompleteCurrentInline();
 
-        renderer._currentFontStyle = oldFontStyle;
-        renderer._currentFontWeight = oldFontWeight;
+        renderer.CurrentFontFormatting = oldFontFormatting;
     }
 }
