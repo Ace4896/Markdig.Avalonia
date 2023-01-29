@@ -1,6 +1,4 @@
 ﻿using Avalonia.Controls.Documents;
-using Avalonia.Layout;
-using Avalonia.Media;
 using Markdig.Avalonia.Renderers.Blocks;
 using Markdig.Avalonia.Renderers.Inlines;
 using Markdig.Helpers;
@@ -14,27 +12,25 @@ namespace Markdig.Avalonia.Renderers;
 /// </summary>
 public class AvaloniaRenderer : RendererBase
 {
-    private Stack<Span> _renderStack;
+    private readonly Stack<Span> _renderStack;
     private InlineCollection _renderedInlines;
 
-    internal FontFormatting CurrentFontFormatting = new()
-    {
-        FontStyle = FontStyle.Normal,
-        FontWeight = FontWeight.Normal,
-    };
+    internal FontFormatting CurrentFontFormatting;
 
     public AvaloniaRenderer()
     {
         _renderStack = new();
         _renderedInlines = new();
+        CurrentFontFormatting = new();
 
         LoadObjectRenderers();
     }
 
     public override object Render(MarkdownObject markdownObject)
     {
-        _renderStack = new();
+        _renderStack.Clear();
         _renderedInlines = new();
+        CurrentFontFormatting = new();
 
         Write(markdownObject);
         return _renderedInlines;
