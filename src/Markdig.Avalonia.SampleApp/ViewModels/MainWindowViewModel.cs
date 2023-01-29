@@ -37,6 +37,7 @@ public class MainWindowViewModel : ViewModelBase
     private static ViewModelBase? GetViewModelForPage(PageType pageType) => pageType switch
     {
         PageType.Sandbox => new SandboxViewModel(),
+        PageType.Editor => new EditorViewModel(),
         _ => null,
     };
 }

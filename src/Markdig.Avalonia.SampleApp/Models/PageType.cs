@@ -6,4 +6,5 @@
 public enum PageType
 {
     Sandbox,
+    Editor,
 }
