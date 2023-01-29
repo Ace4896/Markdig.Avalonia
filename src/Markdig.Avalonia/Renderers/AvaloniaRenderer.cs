@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls.Documents;
 using Avalonia.Layout;
+using Avalonia.Media;
 using Markdig.Avalonia.Renderers.Blocks;
 using Markdig.Avalonia.Renderers.Inlines;
 using Markdig.Helpers;
@@ -15,6 +16,9 @@ public class AvaloniaRenderer : RendererBase
 {
     private Stack<Span> _renderStack;
     private InlineCollection _renderedInlines;
+
+    internal FontWeight _currentFontWeight = FontWeight.Normal;
+    internal FontStyle _currentFontStyle = FontStyle.Normal;
 
     public AvaloniaRenderer()
     {

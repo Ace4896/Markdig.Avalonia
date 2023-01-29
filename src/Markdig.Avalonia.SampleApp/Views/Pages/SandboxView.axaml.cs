@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
 using System;
+using System.Reflection.Metadata;
 
 namespace Markdig.Avalonia.SampleApp.Views.Pages;
 
@@ -109,11 +110,9 @@ public partial class SandboxView : UserControl
         //        txtInlines.Inlines = Markdown.ToInlineCollection(twoParagraphs, markdownPipeline);
 
         // Some bold and italics in the document now
-        //        const string boldAndItalics = @"**here's some bold text** and *italics*
+        const string boldAndItalics = @"**here's some bold text** and *italics*
 
-        //and this is some ***bold and italic text***";
-
-        const string boldAndItalics = @"***bold and italics***";
+and this is some ***bold and italic text***";
         txtInlines.Inlines = Markdown.ToInlineCollection(boldAndItalics, markdownPipeline);
     }
 }
