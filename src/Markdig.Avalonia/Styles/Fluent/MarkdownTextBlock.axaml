@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mdctrls="using:Markdig.Avalonia.Controls">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <mdctrls:MarkdownTextBlock MarkdownText="**Test Text**" />
+    </Border>
+  </Design.PreviewWith>
+
+  <MenuFlyout x:Key="MarkdownTextBlockContextFlyout" Placement="Bottom">
+    <MenuItem x:Name="MarkdownTextBlockContextFlyoutCopyItem" Header="Copy" Command="{Binding $parent[SelectableTextBlock].Copy}"
+              IsEnabled="{Binding $parent[SelectableTextBlock].CanCopy}" InputGesture="{x:Static TextBox.CopyGesture}" />
+  </MenuFlyout>
+
+  <ControlTheme x:Key="{x:Type mdctrls:MarkdownTextBlock}" TargetType="mdctrls:MarkdownTextBlock">
+    <Style Selector="^[IsEnabled=True]">
+      <Setter Property="Cursor" Value="IBeam" />
+      <Setter Property="ContextFlyout" Value="{StaticResource MarkdownTextBlockContextFlyout}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

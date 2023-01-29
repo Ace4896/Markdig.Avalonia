@@ -1,0 +1,71 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <StackPanel Margin="20">
+      <TextBlock>
+        <Span>Normal</Span>
+        <LineBreak />
+        <Span Classes="md-bold">Bold</Span>
+        <LineBreak />
+        <Span Classes="md-italics">Italics</Span>
+        <LineBreak />
+        <Span Classes="md-bold md-italics">Bold and Italics</Span>
+        <LineBreak />
+        <Span Classes="md-h1">Heading 1</Span>
+        <LineBreak />
+        <Span Classes="md-h2">Heading 2</Span>
+        <LineBreak />
+        <Span Classes="md-h3">Heading 3</Span>
+        <LineBreak />
+        <Span Classes="md-h4">Heading 4</Span>
+        <LineBreak />
+        <Span Classes="md-h5">Heading 5</Span>
+        <LineBreak />
+        <Span Classes="md-h6">Heading 6</Span>
+        <LineBreak />
+      </TextBlock>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type Span}" TargetType="Span">
+    <!-- Emphasis -->
+    <Style Selector="^.md-bold">
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="^.md-italics">
+      <Setter Property="FontStyle" Value="Italic" />
+    </Style>
+
+    <!-- Headings -->
+    <Style Selector="^.md-h1">
+      <Setter Property="FontSize" Value="32" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="^.md-h2">
+      <Setter Property="FontSize" Value="28" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="^.md-h3">
+      <Setter Property="FontSize" Value="24" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="^.md-h4">
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="^.md-h5">
+      <Setter Property="FontSize" Value="18" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="^.md-h6">
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>
