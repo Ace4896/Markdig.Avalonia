@@ -1,0 +1,129 @@
+﻿using Avalonia.Controls.Documents;
+using Markdig.Avalonia.Renderers.Blocks;
+using Markdig.Avalonia.Renderers.Inlines;
+using Markdig.Helpers;
+using Markdig.Renderers;
+using Markdig.Syntax;
+
+namespace Markdig.Avalonia.Renderers;
+
+/// <summary>
+/// Avalonia renderer for a <see cref="MarkdownObject"/>.
+/// </summary>
+public class AvaloniaRenderer : RendererBase
+{
+    private readonly Stack<Span> _renderStack;
+    private InlineCollection _renderedInlines;
+    private List<string> _styleClasses;
+
+    public AvaloniaRenderer()
+    {
+        _renderStack = new();
+        _renderedInlines = new();
+        _styleClasses = new List<string>();
+
+        LoadObjectRenderers();
+    }
+
+    public override object Render(MarkdownObject markdownObject)
+    {
+        _renderStack.Clear();
+        _renderedInlines = new();
+        _styleClasses.Clear();
+
+        Write(markdownObject);
+        return _renderedInlines;
+    }
+
+    private void LoadObjectRenderers()
+    {
+        ObjectRenderers.AddRange(new IMarkdownObjectRenderer[]
+        {
+            // Default Block Renderers
+            new HeadingBlockRenderer(),
+            new ParagraphBlockRenderer(),
+
+            // Default Inline Renderers
+            new EmphasisInlineRenderer(),
+            new LiteralInlineRenderer(),
+        });
+    }
+
+    #region Stack Operations (Avalonia-side)
+
+    public void PushBlockForRendering(Span span)
+    {
+        _renderStack.Push(span);
+    }
+
+    public void WriteRenderedInline(Inline inline)
+    {
+        _renderStack.Peek().Inlines.Add(inline);
+    }
+
+    public void AddStyleClass(string stylingClass)
+    {
+        if (!_styleClasses.Contains(stylingClass))
+        {
+            _styleClasses.Add(stylingClass);
+        }
+    }
+
+    public void RemoveStyleClass(string stylingClass)
+    {
+        _styleClasses.Remove(stylingClass);
+    }
+
+    public void SetStyleClasses()
+    {
+        _renderStack.Peek().Classes.AddRange(_styleClasses);
+    }
+
+    public void CompleteCurrentInline()
+    {
+        var currentInline = _renderStack.Pop();
+        _renderStack.Peek().Inlines.Add(currentInline);
+    }
+
+    public void CompleteCurrentBlock()
+    {
+        var currentSpan = _renderStack.Pop();
+
+        // Add linebreaks between blocks
+        if (_renderedInlines.Count > 0)
+        {
+            // TODO: Might be a more efficient way to add linebreaks between blocks...
+            _renderedInlines.Add(new LineBreak());
+            _renderedInlines.Add(new LineBreak());
+        }
+
+        _renderedInlines.Add(currentSpan);
+    }
+
+    #endregion
+
+    #region Render Operations (Markdig-side)
+
+    public void WriteLeafBlockInlines(LeafBlock leafBlock)
+    {
+        var inline = (Syntax.Inlines.Inline?)leafBlock.Inline;
+        while (inline != null)
+        {
+            Write(inline);
+            inline = inline?.NextSibling;
+        }
+    }
+
+    public void WriteText(ref StringSlice slice)
+    {
+        if (slice.Start > slice.End)
+        {
+            return;
+        }
+
+        var renderedInline = new Run(slice.AsSpan().ToString());
+        WriteRenderedInline(renderedInline);
+    }
+
+    #endregion
+}
