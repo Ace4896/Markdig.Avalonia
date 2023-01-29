@@ -48,7 +48,7 @@ public class AvaloniaRenderer : RendererBase
 
     #region Stack Operations (Avalonia-side)
 
-    public void PushSpanForRendering(Span span)
+    public void PushBlockForRendering(Span span)
     {
         _renderStack.Push(span);
     }
@@ -58,7 +58,13 @@ public class AvaloniaRenderer : RendererBase
         _renderStack.Peek().Inlines.Add(inline);
     }
 
-    public void CompleteCurrentSpan()
+    public void CompleteCurrentInline()
+    {
+        var currentInline = _renderStack.Pop();
+        _renderStack.Peek().Inlines.Add(currentInline);
+    }
+
+    public void CompleteCurrentBlock()
     {
         var currentSpan = _renderStack.Pop();
 

@@ -17,8 +17,8 @@ internal class EmphasisInlineRenderer : AvaloniaObjectRenderer<EmphasisInline>
             _ => new Span(),
         };
 
-        renderer.PushSpanForRendering(span);
+        renderer.PushBlockForRendering(span);
         renderer.WriteChildren(obj);
-        renderer.CompleteCurrentSpan();
+        renderer.CompleteCurrentInline();
     }
 }
