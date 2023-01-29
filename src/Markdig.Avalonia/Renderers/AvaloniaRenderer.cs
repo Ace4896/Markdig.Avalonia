@@ -14,14 +14,13 @@ public class AvaloniaRenderer : RendererBase
 {
     private readonly Stack<Span> _renderStack;
     private InlineCollection _renderedInlines;
-
-    internal FontFormatting CurrentFontFormatting;
+    private List<string> _styleClasses;
 
     public AvaloniaRenderer()
     {
         _renderStack = new();
         _renderedInlines = new();
-        CurrentFontFormatting = new();
+        _styleClasses = new List<string>();
 
         LoadObjectRenderers();
     }
@@ -30,7 +29,7 @@ public class AvaloniaRenderer : RendererBase
     {
         _renderStack.Clear();
         _renderedInlines = new();
-        CurrentFontFormatting = new();
+        _styleClasses.Clear();
 
         Write(markdownObject);
         return _renderedInlines;
@@ -61,11 +60,22 @@ public class AvaloniaRenderer : RendererBase
         _renderStack.Peek().Inlines.Add(inline);
     }
 
-    public void SetFontFormatting()
+    public void AddStyleClass(string stylingClass)
     {
-        var currentSpan = _renderStack.Peek();
-        currentSpan.FontStyle = CurrentFontFormatting.FontStyle;
-        currentSpan.FontWeight = CurrentFontFormatting.FontWeight;
+        if (!_styleClasses.Contains(stylingClass))
+        {
+            _styleClasses.Add(stylingClass);
+        }
+    }
+
+    public void RemoveStyleClass(string stylingClass)
+    {
+        _styleClasses.Remove(stylingClass);
+    }
+
+    public void SetStyleClasses()
+    {
+        _renderStack.Peek().Classes.AddRange(_styleClasses);
     }
 
     public void CompleteCurrentInline()

@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls.Documents;
 using Avalonia.Media;
+using Markdig.Avalonia.Styles;
 using Markdig.Syntax.Inlines;
 
 namespace Markdig.Avalonia.Renderers.Inlines;
@@ -12,31 +13,30 @@ internal class EmphasisInlineRenderer : AvaloniaObjectRenderer<EmphasisInline>
 {
     protected override void Write(AvaloniaRenderer renderer, EmphasisInline obj)
     {
-        var oldFontFormatting = renderer.CurrentFontFormatting;
-
-        switch (obj.DelimiterChar)
+        string? styleClass = obj.DelimiterChar switch
         {
-            case '*':
-            case '_':
-                switch (obj.DelimiterCount)
-                {
-                    case 1:
-                        renderer.CurrentFontFormatting.FontStyle = FontStyle.Italic;
-                        break;
+            '*' or '_' => obj.DelimiterCount switch
+            {
+                1 => StyleClasses.Italics,
+                2 => StyleClasses.Bold,
+                _ => null,
+            },
+            _ => null,
+        };
 
-                    case 2:
-                        renderer.CurrentFontFormatting.FontWeight = FontWeight.Bold;
-                        break;
-                }
-
-                break;
+        if (styleClass != null)
+        {
+            renderer.AddStyleClass(styleClass);
         }
 
         renderer.PushBlockForRendering(new Span());
-        renderer.SetFontFormatting();
+        renderer.SetStyleClasses();
         renderer.WriteChildren(obj);
         renderer.CompleteCurrentInline();
 
-        renderer.CurrentFontFormatting = oldFontFormatting;
+        if (styleClass != null)
+        {
+            renderer.RemoveStyleClass(styleClass);
+        }
     }
 }
