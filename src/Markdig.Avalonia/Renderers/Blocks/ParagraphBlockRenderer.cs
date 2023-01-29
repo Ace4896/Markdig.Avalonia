@@ -11,8 +11,7 @@ public class ParagraphBlockRenderer : AvaloniaObjectRenderer<ParagraphBlock>
 {
     protected override void Write(AvaloniaRenderer renderer, ParagraphBlock obj)
     {
-        var paragraphSpan = new Span();
-        renderer.PushBlockForRendering(paragraphSpan);
+        renderer.PushBlockForRendering(new Span());
         renderer.WriteLeafBlockInlines(obj);
         renderer.CompleteCurrentBlock();
     }
