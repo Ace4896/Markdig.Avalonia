@@ -10,6 +10,7 @@ namespace Markdig.Avalonia.Controls;
 /// </summary>
 public class MarkdownTextBlock : SelectableTextBlock
 {
+    private static InlineCollection EmptyInlineCollection = new() { new Run("") };
     private readonly AvaloniaRenderer _avaloniaMarkdownRenderer = new();
 
     /// <summary>
@@ -78,8 +79,9 @@ public class MarkdownTextBlock : SelectableTextBlock
     {
         if (string.IsNullOrEmpty(text))
         {
-            // TODO: I think clearing a text block is broken at the moment... doesn't seem to clear the contents?
-            Inlines?.Clear();
+            // NOTE: Clearing an inline collection doesn't seem to clear the displayed text
+            // For now, need to workaround this by rendering an empty text run
+            Inlines = EmptyInlineCollection;
         }
         else
         {
