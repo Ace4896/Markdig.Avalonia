@@ -13,6 +13,9 @@ public class MarkdownTextBlock : SelectableTextBlock
     private static InlineCollection EmptyInlineCollection = new() { new Run("") };
     private readonly AvaloniaRenderer _avaloniaMarkdownRenderer = new();
 
+    private MarkdownPipeline _markdownPipeline = new MarkdownPipelineBuilder().Build();
+    private string? _markdownText;
+
     /// <summary>
     /// Defines the <see cref="MarkdownPipeline"/> property.
     /// </summary>
@@ -33,8 +36,6 @@ public class MarkdownTextBlock : SelectableTextBlock
             (o, v) => o.MarkdownText = v
         );
 
-    private MarkdownPipeline _markdownPipeline = new MarkdownPipelineBuilder().Build();
-
     /// <summary>
     /// Gets or sets the current <see cref="MarkdownPipeline"/> to use for rendering.
     /// </summary>
@@ -43,8 +44,6 @@ public class MarkdownTextBlock : SelectableTextBlock
         get => _markdownPipeline;
         set => SetAndRaise(MarkdownPipelineProperty, ref _markdownPipeline, value);
     }
-
-    private string? _markdownText;
 
     /// <summary>
     /// Gets or sets the current Markdown text to be rendered.

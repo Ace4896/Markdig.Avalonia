@@ -1,4 +1,4 @@
-﻿namespace Markdig.Avalonia.Styles;
+﻿namespace Markdig.Avalonia.Renderers;
 
 /// <summary>
 /// Holds the various style classes used by each markdown element.

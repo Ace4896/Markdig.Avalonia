@@ -1,5 +1,4 @@
 ﻿using Avalonia.Controls.Documents;
-using Markdig.Avalonia.Styles;
 using Markdig.Syntax;
 
 namespace Markdig.Avalonia.Renderers.Blocks;

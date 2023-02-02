@@ -1,6 +1,5 @@
 ﻿using Avalonia.Controls.Documents;
 using Avalonia.Media;
-using Markdig.Avalonia.Styles;
 using Markdig.Syntax.Inlines;
 
 namespace Markdig.Avalonia.Renderers.Inlines;
