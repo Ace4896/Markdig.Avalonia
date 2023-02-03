@@ -7,7 +7,7 @@ namespace Markdig.Avalonia.SampleApp;
 
 public class ViewLocator : IDataTemplate
 {
-    public IControl Build(object? data)
+    public Control? Build(object? data)
     {
         if (data == null)
         {
