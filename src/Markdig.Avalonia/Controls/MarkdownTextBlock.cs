@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
+using Avalonia.Controls.Metadata;
+using Avalonia.Controls.Primitives;
 using Markdig.Avalonia.Renderers;
 
 namespace Markdig.Avalonia.Controls;
@@ -8,10 +10,16 @@ namespace Markdig.Avalonia.Controls;
 /// <summary>
 /// A <see cref="SelectableTextBlock"/> capable of displaying Markdown.
 /// </summary>
-public class MarkdownTextBlock : SelectableTextBlock
+[TemplatePart("PART_SelectableTextBlock", typeof(SelectableTextBlock))]
+public class MarkdownTextBlock : TemplatedControl
 {
-    private static InlineCollection EmptyInlineCollection = new() { new Run("") };
+    private static readonly InlineCollection EmptyInlineCollection = new() { new Run("") };
     private readonly AvaloniaRenderer _avaloniaMarkdownRenderer = new();
+
+    private SelectableTextBlock? _selectableTextBlock;
+
+    private MarkdownPipeline _markdownPipeline = new MarkdownPipelineBuilder().Build();
+    private string? _markdownText;
 
     /// <summary>
     /// Defines the <see cref="MarkdownPipeline"/> property.
@@ -33,8 +41,6 @@ public class MarkdownTextBlock : SelectableTextBlock
             (o, v) => o.MarkdownText = v
         );
 
-    private MarkdownPipeline _markdownPipeline = new MarkdownPipelineBuilder().Build();
-
     /// <summary>
     /// Gets or sets the current <see cref="MarkdownPipeline"/> to use for rendering.
     /// </summary>
@@ -44,8 +50,6 @@ public class MarkdownTextBlock : SelectableTextBlock
         set => SetAndRaise(MarkdownPipelineProperty, ref _markdownPipeline, value);
     }
 
-    private string? _markdownText;
-
     /// <summary>
     /// Gets or sets the current Markdown text to be rendered.
     /// </summary>
@@ -53,6 +57,13 @@ public class MarkdownTextBlock : SelectableTextBlock
     {
         get => _markdownText;
         set => SetAndRaise(MarkdownTextProperty, ref _markdownText, value);
+    }
+
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+
+        _selectableTextBlock = e.NameScope.Get<SelectableTextBlock>("PART_SelectableTextBlock");
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
@@ -77,15 +88,15 @@ public class MarkdownTextBlock : SelectableTextBlock
 
     private void RenderMarkdown(string? text, MarkdownPipeline pipeline)
     {
-        if (string.IsNullOrEmpty(text))
+        if (_selectableTextBlock == null)
         {
-            // NOTE: Clearing an inline collection doesn't seem to clear the displayed text
-            // For now, need to workaround this by rendering an empty text run
-            Inlines = EmptyInlineCollection;
+            return;
         }
-        else
-        {
-            Inlines = Markdown.ToInlineCollection(text, pipeline, _avaloniaMarkdownRenderer);
-        }
+
+        // NOTE: Clearing an inline collection doesn't seem to clear the displayed text
+        // For now, need to workaround this by rendering an empty text run
+        _selectableTextBlock.Inlines = string.IsNullOrEmpty(text)
+            ? EmptyInlineCollection
+            : Markdown.ToInlineCollection(text, pipeline, _avaloniaMarkdownRenderer);
     }
 }

@@ -1,0 +1,23 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:Markdig.Avalonia.Controls">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <local:MarkdownTextBlock MarkdownText="**test text**" />
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme TargetType="local:MarkdownTextBlock" x:Key="{x:Type local:MarkdownTextBlock}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:MarkdownTextBlock">
+          <SelectableTextBlock x:Name="PART_SelectableTextBlock" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+
+    <Style Selector="^ /template/ SelectableTextBlock#PART_SelectableTextBlock Span.md-bold">
+      <Setter Property="TextElement.FontWeight" Value="Bold" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Markdig.Avalonia.Themes.Fluent\Markdig.Avalonia.Themes.Fluent.csproj" />
     <ProjectReference Include="..\Markdig.Avalonia\Markdig.Avalonia.csproj" />
   </ItemGroup>
 </Project>
