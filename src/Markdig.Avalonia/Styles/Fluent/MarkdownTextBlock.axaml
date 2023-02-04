@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:md="using:Markdig.Avalonia.Controls">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <md:MarkdownTextBlock MarkdownText="**test text**" />
+    </Border>
+  </Design.PreviewWith>
+  
+  <ControlTheme x:Key="{x:Type md:MarkdownTextBlock}" TargetType="md:MarkdownTextBlock" BasedOn="{StaticResource {x:Type SelectableTextBlock}}" />
+</ResourceDictionary>

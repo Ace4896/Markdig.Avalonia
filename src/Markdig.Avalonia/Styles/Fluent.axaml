@@ -1,5 +1,12 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <StyleInclude Source="/Styles/Fluent/Emphasis.axaml" />
-  <StyleInclude Source="/Styles/Fluent/Headings.axaml" />
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:md="using:Markdig.Avalonia.Controls">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="/Styles/Fluent/MarkdownTextBlock.axaml" />
+        <ResourceInclude Source="/Styles/Fluent/Span.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
 </Styles>
